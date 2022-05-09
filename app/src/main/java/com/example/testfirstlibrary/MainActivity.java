@@ -24,11 +24,11 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-
+import androidx.core.content.FileProvider;
 
 
 import java.io.File;
@@ -75,7 +75,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayAdapter<String> file_list_adapter;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,13 +103,13 @@ public class MainActivity extends AppCompatActivity {
         files_dir = getExternalFilesDir("/").getAbsolutePath();
         File dir_list = new File(files_dir);
         files_array = dir_list.list();
-        for (int i = 0; i < files_array.length; i++){
+        for (int i = 0; i < files_array.length; i++) {
             array_for_adapter.add(files_array[i]);
         }
 
 
         handler = new Handler();
-        record_mode =findViewById(R.id.record_mode);
+        record_mode = findViewById(R.id.record_mode);
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
         button4 = findViewById(R.id.button4);
@@ -125,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         save_file.setEnabled(false);
         save_file.setOnClickListener(v -> {
             DialogSaveFile save_dialog = new DialogSaveFile();
-            save_dialog.show(getSupportFragmentManager(),"save");
+            save_dialog.show(getSupportFragmentManager(), "save");
         });
 
         records_list_show = findViewById(R.id.records_list_show);
@@ -180,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
         }
         try {
             mediaRecorder.prepare();
-        }  catch (Exception e) {
+        } catch (Exception e) {
             Toast.makeText(getApplicationContext(), "ERROR prepare", Toast.LENGTH_SHORT).show();
         }
         try {
@@ -189,8 +188,8 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "ERROR start", Toast.LENGTH_SHORT).show();
         }
         if (mediaRecorder != null) {
-           Toast.makeText(getApplicationContext(), "Запись запущена", Toast.LENGTH_SHORT).show();
-           record_mode.setText(R.string.mod_true);
+            Toast.makeText(getApplicationContext(), "Запись запущена", Toast.LENGTH_SHORT).show();
+            record_mode.setText(R.string.mod_true);
         }
 
     }
@@ -202,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void releasePlayer(){
+    private void releasePlayer() {
         if (mediaPlayer != null) {
             mediaPlayer.release();
             mediaPlayer = null;
@@ -219,33 +218,33 @@ public class MainActivity extends AppCompatActivity {
         button5.setEnabled(true);
         timer_mic.stop();
         record_mode.setText(R.string.mod_false);
-            mediaPlayer = new MediaPlayer();
-            try {
-                mediaPlayer.setDataSource(fileName);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            try {
-                mediaPlayer.prepare();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            progressBar.setMax(mediaPlayer.getDuration());
-            duration = Integer.toString(mediaPlayer.getDuration());
-            play_duration.setText(duration.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getDuration()), TimeUnit.MILLISECONDS.toSeconds(mediaPlayer.getDuration()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getDuration()))));
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    progressBar.setProgress(mediaPlayer.getCurrentPosition());
-                    handler.postDelayed(this, 1000);
-                    current_position = Integer.toString(mediaPlayer.getCurrentPosition());
-                    timer_play.setText(current_position.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getCurrentPosition()), TimeUnit.MILLISECONDS.toSeconds(mediaPlayer.getCurrentPosition()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getCurrentPosition()))));
-                    if (mediaPlayer.getDuration() == mediaPlayer.getCurrentPosition()){
-                        progressBar.setProgress(0);
-                        timer_play.setText("00:00");
-                    }
+        mediaPlayer = new MediaPlayer();
+        try {
+            mediaPlayer.setDataSource(fileName);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            mediaPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        progressBar.setMax(mediaPlayer.getDuration());
+        duration = Integer.toString(mediaPlayer.getDuration());
+        play_duration.setText(duration.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getDuration()), TimeUnit.MILLISECONDS.toSeconds(mediaPlayer.getDuration()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getDuration()))));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setProgress(mediaPlayer.getCurrentPosition());
+                handler.postDelayed(this, 1000);
+                current_position = Integer.toString(mediaPlayer.getCurrentPosition());
+                timer_play.setText(current_position.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getCurrentPosition()), TimeUnit.MILLISECONDS.toSeconds(mediaPlayer.getCurrentPosition()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getCurrentPosition()))));
+                if (mediaPlayer.getDuration() == mediaPlayer.getCurrentPosition()) {
+                    progressBar.setProgress(0);
+                    timer_play.setText("00:00");
                 }
-            }).start();
+            }
+        }).start();
     }
 
 
@@ -267,7 +266,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void Show_start(View view) {
         CustomDialogFragment dialog = new CustomDialogFragment();
-        dialog.show(getSupportFragmentManager(),"example");
+        dialog.show(getSupportFragmentManager(), "example");
 
     }
 
@@ -278,7 +277,8 @@ public class MainActivity extends AppCompatActivity {
             button5.setEnabled(true);
         }
     }
-    public void saveToTheFiles(){
+
+    public void saveToTheFiles() {
         try {
             Files.copy(cache_file, per_file, REPLACE_EXISTING);
         } catch (IOException e) {
@@ -289,30 +289,33 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "File is saved", Toast.LENGTH_SHORT).show();
             SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd.hh.mm.ss", Locale.getDefault());
             Date currentDate = new Date();
-            File recordName = new File(getExternalFilesDir("/").getAbsolutePath(),   format.format(currentDate) + ".mp3");
+            File recordName = new File(getExternalFilesDir("/").getAbsolutePath(), format.format(currentDate) + ".mp3");
             newPerFile.renameTo(recordName);
             file_list_adapter.add(format.format(currentDate) + ".mp3");
             file_list_adapter.notifyDataSetChanged();
         }
     }
 
-    public void deleteFileFromDir(String get_file_to_delete){
-       File deleteRecord = new File(files_dir + "/" + get_file_to_delete);
-       deleteRecord.delete();
-       if (!deleteRecord.exists()){
-           Toast.makeText(getApplicationContext(), "File deleted", Toast.LENGTH_SHORT).show();
-           file_list_adapter.remove(get_file_to_delete);
-           file_list_adapter.notifyDataSetChanged();
-       }
+    public void deleteFileFromDir(String get_file_to_delete) {
+        File deleteRecord = new File(files_dir + "/" + get_file_to_delete);
+        deleteRecord.delete();
+        if (!deleteRecord.exists()) {
+            Toast.makeText(getApplicationContext(), "File deleted", Toast.LENGTH_SHORT).show();
+            file_list_adapter.remove(get_file_to_delete);
+            file_list_adapter.notifyDataSetChanged();
+        }
     }
 
-    public void sendFileFromDir(String get_file_to_send){
+    public void sendFileFromDir(String get_file_to_send) {
         File recordToSend = new File(files_dir + "/" + get_file_to_send);
-        Intent share = new Intent(Intent.ACTION_SEND).setType("audio/mp3");
-        share.putExtra(Intent.EXTRA_STREAM, Uri.parse(files_dir + "/" + get_file_to_send));
-        startActivity(Intent.createChooser(share, "Send to:"));
+        Uri resUri = FileProvider.getUriForFile(this, "com.example.testfirstlibrary", recordToSend);
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("audio/*");
+        share.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        share.putExtra(Intent.EXTRA_STREAM, resUri);
+        startActivity(Intent.createChooser(share, "Share File"));
+
     }
-
-
 
 }
