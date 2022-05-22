@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <ScrollView
+        android:id="@+id/fragment_scroll_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <RelativeLayout
+            android:id="@+id/text_container"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+        <TextView
+            android:id="@+id/about_app_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:layout_marginStart="20dp"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            android:fontFamily="serif"
+            android:text="@string/help"
+            android:textSize="40sp"
+            />
+
+            <TextView
+                android:id="@+id/about_app_instep"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="100dp"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black"
+                android:text="@string/instep"
+                android:textSize="22sp"/>
+
+            <TextView
+                android:id="@+id/about_app_path1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="150dp"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black"
+                android:text='@string/path1'
+                android:textSize="22sp"/>
+
+            <TextView
+                android:id="@+id/about_app_path2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="360dp"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black"
+                android:text='@string/path2'
+                android:textSize="22sp"/>
+
+            <TextView
+                android:id="@+id/about_app_path3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="620dp"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black"
+                android:text='@string/path3'
+                android:textSize="22sp"/>
+
+            <TextView
+                android:id="@+id/about_app_out_step"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="980dp"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black"
+                android:text='@string/out_step'
+                android:textSize="22sp"/>
+
+            <TextView
+                android:id="@+id/about_app_end"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1070dp"
+                android:layout_marginBottom="40dp"
+                android:layout_marginStart="20dp"
+                android:textColor="@color/black"
+                android:text='@string/developers'
+                android:textSize="22sp"/>
+        </RelativeLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
