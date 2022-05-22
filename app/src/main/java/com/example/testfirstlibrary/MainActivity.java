@@ -14,22 +14,31 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
+import androidx.fragment.app.FragmentTransaction;
 
 
-
+import com.bumptech.glide.Glide;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     Bundle argument;
     MediaRecorder mediaRecorder;
     MediaPlayer mediaPlayer;
+    MediaPlayer recordsPlayer;
+    AboutAppFragment aboutAppFragment;
     Path cache_file;
     Path per_file;
     String fileName;
@@ -56,23 +67,31 @@ public class MainActivity extends AppCompatActivity {
     String files_dir;
     String selected_item;
     ProgressBar progressBar;
+    SeekBar record_control;
     ImageButton save_file;
     TextView record_mode;
     Button button1;
     Button button2;
     Button button4;
     Button button5;
+    Button start_stop;
+    Button about_app_button;
     Chronometer timer_mic;
     TextView timer_play;
     TextView play_duration;
     Handler handler;
-    int permission1;
-    int permission2;
-    int request_answer1;
+    Handler records_handler;
+    int permission;
+    private static final int request_answer = 100;
     ListView records_list_show;
+    ScrollView scroll_screen;
+    ImageView record_animation;
+    RelativeLayout play_bar;
     String[] files_array;
     ArrayList<String> array_for_adapter = new ArrayList<>();
     ArrayAdapter<String> file_list_adapter;
+    boolean play_state;
+    boolean show_fragment;
 
 
 
@@ -81,12 +100,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        permission1 = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
-        permission2 = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        permission = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
 
-        if (permission1 == PackageManager.PERMISSION_DENIED || permission2 == PackageManager.PERMISSION_DENIED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO, Manifest.permission.WRITE_EXTERNAL_STORAGE}, request_answer1);
+        if (permission == PackageManager.PERMISSION_DENIED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, request_answer);
+
         }
+
 
         getWindow().setStatusBarColor(getColor(R.color.teal_700));
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.rgb(35, 174, 163)));
@@ -98,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
         }
         per_fileName = getExternalFilesDir("/").getAbsolutePath() + "/record.mp3";
         progressBar = findViewById(R.id.progressBar);
+        record_control = findViewById(R.id.record_control);
         cache_file = Paths.get(fileName);
         per_file = Paths.get(per_fileName);
 
@@ -110,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         handler = new Handler();
+        records_handler = new Handler();
         record_mode =findViewById(R.id.record_mode);
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
@@ -121,7 +143,12 @@ public class MainActivity extends AppCompatActivity {
         button2.setEnabled(false);
         button4.setEnabled(false);
         button5.setEnabled(false);
+
+
         save_file = findViewById(R.id.save_file);
+        record_animation = findViewById(R.id.record_animation);
+        start_stop = findViewById(R.id.start_stop);
+        play_bar = findViewById(R.id.play_bar);
         save_file.setEnabled(false);
         save_file.setOnClickListener(v -> {
             DialogSaveFile save_dialog = new DialogSaveFile();
@@ -141,7 +168,26 @@ public class MainActivity extends AppCompatActivity {
             choseDialog.show(getSupportFragmentManager(), "chose!");
         });
 
+        scroll_screen = findViewById(R.id.scroll_screen);
 
+            records_list_show.setOnTouchListener((v, event) -> {
+                scroll_screen.requestDisallowInterceptTouchEvent(true);
+                return false;
+            });
+
+        about_app_button = findViewById(R.id.about_app_button);
+        show_fragment = false;
+        aboutAppFragment = new AboutAppFragment();
+        about_app_button.setOnClickListener(v -> {
+            if (!show_fragment) {
+                getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, aboutAppFragment, null).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+                show_fragment = true;
+            } else {
+                getSupportFragmentManager().beginTransaction().remove(aboutAppFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+                show_fragment = false;
+            }
+
+        });
     }
 
     public void recordStart() {
@@ -152,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
         button5.setEnabled(false);
         timer_mic.setBase(SystemClock.elapsedRealtime());
         timer_mic.start();
+        Glide.with(this).load(R.drawable.animation_sound).into(record_animation);
         releaseRecorder();
         try {
             mediaRecorder = new MediaRecorder();
@@ -189,7 +236,6 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "ERROR start", Toast.LENGTH_SHORT).show();
         }
         if (mediaRecorder != null) {
-           Toast.makeText(getApplicationContext(), "Запись запущена", Toast.LENGTH_SHORT).show();
            record_mode.setText(R.string.mod_true);
         }
 
@@ -208,6 +254,12 @@ public class MainActivity extends AppCompatActivity {
             mediaPlayer = null;
         }
     }
+    private void releaseDirPlayer(){
+        if (recordsPlayer != null) {
+            recordsPlayer.release();
+            recordsPlayer = null;
+        }
+    }
 
     public void recordStop(View view) {
         releasePlayer();
@@ -215,9 +267,9 @@ public class MainActivity extends AppCompatActivity {
         button1.setEnabled(true);
         button2.setEnabled(false);
         save_file.setEnabled(true);
-        button4.setEnabled(true);
         button5.setEnabled(true);
         timer_mic.stop();
+        Glide.with(this).load(R.drawable.sound).into(record_animation);
         record_mode.setText(R.string.mod_false);
             mediaPlayer = new MediaPlayer();
             try {
@@ -243,6 +295,8 @@ public class MainActivity extends AppCompatActivity {
                     if (mediaPlayer.getDuration() == mediaPlayer.getCurrentPosition()){
                         progressBar.setProgress(0);
                         timer_play.setText("00:00");
+                        button4.setEnabled(false);
+                        button5.setEnabled(true);
                     }
                 }
             }).start();
@@ -258,10 +312,34 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
         releasePlayer();
+        releaseDirPlayer();
         releaseRecorder();
         Toast.makeText(getApplicationContext(), "App finished", Toast.LENGTH_SHORT).show();
+        super.onDestroy();
+    }
+    @Override
+    public void onBackPressed(){
+        if(show_fragment){
+            getSupportFragmentManager().beginTransaction().remove(aboutAppFragment).setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
+            show_fragment = false;
+        } else{
+            super.onBackPressed();
+        }
+
+    }
+
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode,  @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case request_answer:
+                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED) {
+                    button1.setEnabled(false);
+                }
+                break;
+        }
     }
 
 
@@ -296,6 +374,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void confirmDelete(String get_file_to_confirm){
+        Bundle confirm_argument = new Bundle();
+        confirm_argument.putString("object", get_file_to_confirm);
+        ConfirmActionDialog confirmActionDialog = new ConfirmActionDialog();
+        confirmActionDialog.setArguments(confirm_argument);
+        confirmActionDialog.show(getSupportFragmentManager(), "confirm!");
+    }
+
     public void deleteFileFromDir(String get_file_to_delete){
        File deleteRecord = new File(files_dir + "/" + get_file_to_delete);
        deleteRecord.delete();
@@ -308,11 +394,75 @@ public class MainActivity extends AppCompatActivity {
 
     public void sendFileFromDir(String get_file_to_send){
         File recordToSend = new File(files_dir + "/" + get_file_to_send);
-        Intent share = new Intent(Intent.ACTION_SEND).setType("audio/mp3");
-        share.putExtra(Intent.EXTRA_STREAM, Uri.parse(files_dir + "/" + get_file_to_send));
+        Uri resUri = FileProvider.getUriForFile(this, "com.example.testfirstlibrary", recordToSend);
+        Intent share = new Intent(Intent.ACTION_SEND).setType("audio/*");
+        share.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        share.putExtra(Intent.EXTRA_STREAM, resUri);
         startActivity(Intent.createChooser(share, "Send to:"));
     }
 
+    public void playFileFromDir(String get_file_to_play){
+        releaseDirPlayer();
+        play_state = true;
+        play_bar.setVisibility(View.VISIBLE);
+        recordsPlayer = new MediaPlayer();
+        try {
+            recordsPlayer.setDataSource(files_dir + "/" + get_file_to_play);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        try {
+            recordsPlayer.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        recordsPlayer.start();
+        record_control.setMax(recordsPlayer.getDuration());
+        record_control.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
 
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+                recordsPlayer.seekTo(record_control.getProgress());
+            }
+        });
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                record_control.setProgress(recordsPlayer.getCurrentPosition(), true);
+                records_handler.postDelayed(this, 100);
+                if (recordsPlayer.getCurrentPosition() == recordsPlayer.getDuration()){
+                    record_control.setProgress(0, false);
+                    start_stop.setText(R.string.start);
+                    start_stop.setTextSize(20);
+                    play_state = false;
+                }
+            }
+        }).start();
+        start_stop.setOnClickListener(v -> {
+            if(play_state) {
+                recordsPlayer.pause();
+                start_stop.setText(R.string.start);
+                start_stop.setTextSize(20);
+                play_state = false;
+
+            } else {
+                recordsPlayer.start();
+                start_stop.setText(R.string.pause);
+                start_stop.setTextSize(15);
+                play_state = true;
+            }
+        });
+
+    }
 
 }

@@ -3,7 +3,15 @@
     <string name="record">record</string>
     <string name="start" translatable="false">▶</string>
     <string name="pause" translatable="false">❚❚</string>
+    <string name="question" translatable="false">ⓘ</string>
     <string name="audio_record">Your entry:</string>
     <string name="mod_false">Recording not started</string>
     <string name="mod_true">Recording started</string>
+    <string name="help">Помощь</string>
+    <string name="instep">Как пользоваться приложением?</string>
+    <string name="path1">1. Если вы впервые запустили приложение - разрешите запись с микрофона и чтение файлов - это необходимо для нормального функционала. Если же вы запретили с выбором больше не спрашивать- зайдите в настройки и зделайте это вручную.</string>
+    <string name="path2">2. Ввехние 2 кнопки отвечают за управление записью, нижние 2 - за управление воспроизведения только что записанного файла. В самом вверху, в вверхнем правом углу синего блока есть значок Сохранить- кликните на него, когда захотите сохранить вашу запись и подтвердите своё действие в диаолге.</string>
+    <string name="path3">3. Внизу есть список файлов, которые вы сохранили, он начнёт заполняться, когда вы станете сохранять ваши записи. Если вы кликните на 1 из елементов списка - появиться диалог с выбором действий. Также при воспроизведении записей из списка, внизу под списком появится панел с кнопкой и ползунком, с помощью которых можно управлять воспроизведением.</string>
+    <string name="out_step">Вот и всё, наслаждайтесь нашим приложением!</string>
+    <string name="developers">С уважением, команда Samsung IT-School RL 21-22</string>
 </resources>

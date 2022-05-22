@@ -21,9 +21,9 @@ public class ChoseActionDialog extends DialogFragment {
                 .setPositiveButton("Отправить", (dialog, which) -> {
                     ((MainActivity)requireActivity()).sendFileFromDir(get_object);
                 })
-                .setNeutralButton("Воспроизвести", null)
+                .setNeutralButton("Воспроизвести", (dialog, which) -> ((MainActivity)requireActivity()).playFileFromDir(get_object))
                 .setNegativeButton("Удалить", (dialog, which) -> {
-                    ((MainActivity)requireActivity()).deleteFileFromDir(get_object);
+                    ((MainActivity)requireActivity()).confirmDelete(get_object);
                 })
                 .create();
 
