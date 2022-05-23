@@ -16,8 +16,8 @@ public class SplashActivity extends AppCompatActivity {
         getWindow().setStatusBarColor(getColor(R.color.white));
         Toast.makeText(getApplicationContext(), "SPLASHHH!!!", Toast.LENGTH_SHORT).show();
 
-        Intent startMainActivityIntent = new Intent(this, MainActivity.class);
+        /*Intent startMainActivityIntent = new Intent(this, MainActivity.class);
         startActivity(startMainActivityIntent);
-        finish();
+        finish();*/
     }
 }
