@@ -291,7 +291,11 @@ public class MainActivity extends AppCompatActivity {
                     progressBar.setProgress(mediaPlayer.getCurrentPosition());
                     handler.postDelayed(this, 1000);
                     current_position = Integer.toString(mediaPlayer.getCurrentPosition());
-                    timer_play.setText(current_position.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getCurrentPosition()), TimeUnit.MILLISECONDS.toSeconds(mediaPlayer.getCurrentPosition()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getCurrentPosition()))));
+                    try {
+                        timer_play.setText(current_position.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getCurrentPosition()), TimeUnit.MILLISECONDS.toSeconds(mediaPlayer.getCurrentPosition()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getCurrentPosition()))));
+                    }catch (Exception e){
+                        timer_play.setText("");
+                    }
                     if (mediaPlayer.getDuration() == mediaPlayer.getCurrentPosition()){
                         progressBar.setProgress(0);
                         timer_play.setText("00:00");
