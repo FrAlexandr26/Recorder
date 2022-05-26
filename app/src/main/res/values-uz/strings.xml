@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="audio_record">Sizning kirishingiz</string>
+    <string name="mod_false">Yozib olish boshlanmadi</string>
+    <string name="mod_true">Yozib olish boshlandi</string>
+    <string name="help">Yordam</string>
+    <string name="instep">Ilovadan qanday foydalanish kerak?</string>
+    <string name="path1">1. Agar siz ilovani birinchi marta ishga tushirgan bo\'lsangiz - mikrofondan yozib olishga va fayllarni o\'qishga ruxsat bering - bu normal ishlash uchun kerak. Agar siz yana so\'ramaslikni tanlashni taqiqlagan bo\'lsangiz, sozlamalarga o\'ting va uni qo\'lda bajaring.</string>
+    <string name="path2">2. Yuqoridagi 2 ta tugma yozuvni boshqarish uchun, pastki 2 tugma esa hozirgina yozib olingan faylni ijro etishni boshqarish uchun javobgardir. Eng yuqori qismida, ko\'k blokning yuqori o\'ng burchagida Saqlash belgisi mavjud - yozuvingizni saqlamoqchi bo\'lganingizda va muloqot oynasida harakatingizni tasdiqlamoqchi bo\'lganingizda uni bosing.</string>
+    <string name="path3">3. Pastki qismida siz saqlagan fayllar ro\'yxati mavjud bo\'lib, u yozuvlaringizni saqlashni boshlaganingizda to\'ldirila boshlaydi. Agar siz roʻyxat bandlaridan 1 tasini bossangiz, amallar tanlovi bilan muloqot oynasi paydo boʻladi. Shuningdek, ro\'yxatdagi yozuvlarni o\'ynatishda ro\'yxat ostida tugma va slayderli panel paydo bo\'ladi, uning yordamida siz ijroni boshqarishingiz mumkin.</string>
+    <string name="out_step">Mana, ilovamizdan bahramand bo\'ling!</string>
+    <string name="developers">Hurmat bilan, Samsung IT-School RL 21-22 jamoasi</string>
+    <string name="begin_record_title">Xabar</string>
+    <string name="begin_record">Yozishni boshlaganingizda oldingisi o\'chiriladi, boshlansinmi?</string>
+    <string name="save_file_title">Ogohlantirish</string>
+    <string name="save_file">Fayl saqlansinmi?</string>
+    <string name="cancel">Bekor qilish</string>
+    <string name="confirm">Ha</string>
+    <string name="chose_action_title">Harakatni tanlang</string>
+    <string name="chose_action_what_do_you_want">Fayl bilan nima qilishni xohlaysiz</string>
+    <string name="if_you_suddenly">Hech narsa bo\'lmasa - dialog oynasi atrofidagi maydonni bosing</string>
+    <string name="chose_action_send">Yuborish</string>
+    <string name="chose_action_delete">Oʻchirish</string>
+    <string name="chose_action_play">O\'ynang</string>
+    <string name="confirm_delete_title">Oʻchirishni tasdiqlang</string>
+    <string name="confirm_delete">Haqiqatan ham faylni oʻchirib tashlamoqchimisiz?</string>
+    <string name="save_file_success">Fayl saqlandi</string>
+    <string name="save_file_fail">Saqlash amalga oshmadi</string>
+    <string name="delete_file_success">Fayl oʻchirildi</string>
+</resources>

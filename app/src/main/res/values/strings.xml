@@ -1,17 +1,35 @@
 <resources>
     <string name="app_name" translatable="false">Recorder</string>
-    <string name="record">record</string>
     <string name="start" translatable="false">▶</string>
     <string name="pause" translatable="false">❚❚</string>
     <string name="question" translatable="false">ⓘ</string>
-    <string name="audio_record">Your entry:</string>
+    <string name="audio_record">Your record:</string>
     <string name="mod_false">Recording not started</string>
     <string name="mod_true">Recording started</string>
-    <string name="help">Помощь</string>
-    <string name="instep">Как пользоваться приложением?</string>
-    <string name="path1">1. Если вы впервые запустили приложение - разрешите запись с микрофона и чтение файлов - это необходимо для нормального функционала. Если же вы запретили с выбором больше не спрашивать- зайдите в настройки и зделайте это вручную.</string>
-    <string name="path2">2. Ввехние 2 кнопки отвечают за управление записью, нижние 2 - за управление воспроизведения только что записанного файла. В самом вверху, в вверхнем правом углу синего блока есть значок Сохранить- кликните на него, когда захотите сохранить вашу запись и подтвердите своё действие в диаолге.</string>
-    <string name="path3">3. Внизу есть список файлов, которые вы сохранили, он начнёт заполняться, когда вы станете сохранять ваши записи. Если вы кликните на 1 из елементов списка - появиться диалог с выбором действий. Также при воспроизведении записей из списка, внизу под списком появится панел с кнопкой и ползунком, с помощью которых можно управлять воспроизведением.</string>
-    <string name="out_step">Вот и всё, наслаждайтесь нашим приложением!</string>
-    <string name="developers">С уважением, команда Samsung IT-School RL 21-22</string>
+    <string name="help">Help</string>
+    <string name="save_file_title">Caution</string>
+    <string name="save_file">Save file?</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Yes</string>
+    <string name="chose_action_title">Chose action</string>
+    <string name="save_file_success">File saved</string>
+    <string name="save_file_fail">Saving is failed</string>
+    <string name="delete_file_success">File deleted</string>
+    <string name="instep">How to use this app?</string>
+    <string name="chose_action_delete">Delete</string>
+    <string name="chose_action_send">Send</string>
+    <string name="chose_action_play">Play</string>
+    <string name="confirm_delete">Are you sure to delete file</string>
+    <string name="confirm_delete_title">Confirm delete</string>
+    <string name="begin_record_title">Message</string>
+    <string name="chose_action_what_do_you_want">"What do you want to do with file "</string>
+    <string name="if_you_suddenly">If nothing - press on area around of dialog window</string>
+    <string name="out_step">That\'s all, enjoy our app!</string>
+    <string name="begin_record">In begin of recording previous wil be deleted, begin?</string>
+    <string name="path3">3. At the bottom there is a list of files that you have saved, it will start to fill up when you start saving your records. If you click on 1 of the list items, a dialog will appear with a choice of actions. Also, when playing records from the list, a panel with a button and a seekbar will appear below the list, with which you can control playback.</string>
+    <string name="path1">1. If you launched the application for the first time - allow recording from a microphone and reading files - this is necessary for normal functionality. If you have banned with the choice not to ask again, go to the settings and do it manually.</string>
+    <string name="path2">2. The top 2 buttons are responsible for recording control, the bottom 2 - for playback control of the file just recorded. At the top, in the upper right corner of the blue block, there is a Save icon - click on it when you want to save your entry and confirm your action in the dialog.</string>
+    <string name="developers">Respectfully, Samsung IT-School RL 21-22 Team</string>
+
+
 </resources>

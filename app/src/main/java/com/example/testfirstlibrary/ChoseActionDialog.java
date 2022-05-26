@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 public class ChoseActionDialog extends DialogFragment {
+    String first_string = Integer.toString(R.string.chose_action_what_do_you_want);
 
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -16,16 +17,17 @@ public class ChoseActionDialog extends DialogFragment {
         String get_object = getArguments().getString("object");
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         return builder
-                .setTitle("Выберите действие")
-                .setMessage("Что вы хотите сделать с файлом" + " " + get_object + "?" + " " + "Если ничего - нажмите на область вокруг диаолгового окна")
-                .setPositiveButton("Отправить", (dialog, which) -> {
-                    ((MainActivity)requireActivity()).sendFileFromDir(get_object);
+                .setTitle(R.string.chose_action_title)
+                .setMessage(first_string + " " + get_object + "?" + " " + R.string.if_you_suddenly)
+                .setPositiveButton(R.string.chose_action_send, (dialog, which) -> {
+                    ((MainActivity) requireActivity()).sendFileFromDir(get_object);
                 })
-                .setNeutralButton("Воспроизвести", (dialog, which) -> ((MainActivity)requireActivity()).playFileFromDir(get_object))
-                .setNegativeButton("Удалить", (dialog, which) -> {
-                    ((MainActivity)requireActivity()).confirmDelete(get_object);
+                .setNeutralButton(R.string.chose_action_play, (dialog, which) -> ((MainActivity) requireActivity()).playFileFromDir(get_object))
+                .setNegativeButton(R.string.chose_action_delete, (dialog, which) -> {
+                    ((MainActivity) requireActivity()).confirmDelete(get_object);
                 })
                 .create();
+
 
 
 

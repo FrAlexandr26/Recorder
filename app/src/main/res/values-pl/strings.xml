@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="audio_record">Twój wpis</string>
+    <string name="mod_false">Nagrywanie nie rozpoczęło się</string>
+    <string name="mod_true">Nagrywanie rozpoczęte</string>
+    <string name="help">Pomoc</string>
+    <string name="instep">Jak korzystać z aplikacji?</string>
+    <string name="path1">1. Jeśli uruchomiłeś aplikację po raz pierwszy - zezwól na nagrywanie z mikrofonu i odczyt plików - jest to konieczne do normalnej funkcjonalności. Jeśli zabroniłeś wyboru, aby nie pytać ponownie, przejdź do ustawień i zrób to ręcznie.</string>
+    <string name="path2">2. Górne 2 przyciski odpowiadają za sterowanie nagrywaniem, dolne 2 - za sterowanie odtwarzaniem właśnie nagranego pliku. Na samej górze, w prawym górnym rogu niebieskiego bloku, znajduje się ikona Zapisz - kliknij ją, gdy chcesz zapisać swój wpis i potwierdzić działanie w oknie dialogowym.</string>
+    <string name="path3">3. Na dole znajduje się lista plików, które zapisałeś, zacznie się ona zapełniać, gdy zaczniesz zapisywać swoje rekordy. Jeśli klikniesz jeden z elementów listy, pojawi się okno dialogowe z wyborem działań. Również podczas odtwarzania nagrań z listy pod listą pojawi się panel z przyciskiem i suwakiem, za pomocą którego można sterować odtwarzaniem.</string>
+    <string name="out_step">To wszystko, ciesz się naszą aplikacją!</string>
+    <string name="developers">Z pozdrowieniami, Zespół Samsung IT-School RL 21-22</string>
+    <string name="begin_record_title">Wiadomość</string>
+    <string name="begin_record">Kiedy rozpoczniesz nagrywanie, poprzednie zostanie usunięte, zaczynasz?</string>
+    <string name="save_file_title">Ostrzeżenie</string>
+    <string name="save_file">Zapisz plik?</string>
+    <string name="cancel">Anulować</string>
+    <string name="confirm">Tak</string>
+    <string name="chose_action_title">Wybierz akcję</string>
+    <string name="chose_action_what_do_you_want">Co chcesz zrobić z plikiem</string>
+    <string name="if_you_suddenly">Jeśli nic - kliknij obszar wokół okna dialogowego</string>
+    <string name="chose_action_send">Wysłać</string>
+    <string name="chose_action_delete">Usunąć</string>
+    <string name="chose_action_play">Graj</string>
+    <string name="confirm_delete_title">Potwierdź usunięcie</string>
+    <string name="confirm_delete">Czy na pewno chcesz usunąć plik?</string>
+    <string name="save_file_success">Plik zapisano</string>
+    <string name="save_file_fail">Zapisywanie nie powiodło się</string>
+    <string name="delete_file_success">Plik usunięty</string>
+</resources>

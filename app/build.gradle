@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\Mikhail\\Desktop\\Java projects\\TestFirstLibrary\\app\\build\\outputs\\apk\\debug\\app-debug.apk')
+            storePassword 'first_project_25'
+            keyAlias 'first_project'
+            keyPassword 'first_project'
+        }
+    }
     compileSdk 31
 
     defaultConfig {
@@ -19,6 +27,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.debug
         }
     }
     compileOptions {

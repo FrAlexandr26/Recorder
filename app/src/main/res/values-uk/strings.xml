@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="audio_record">Ваш запис</string>
+    <string name="mod_false">Запис не почався</string>
+    <string name="mod_true">Запис почався</string>
+    <string name="help">Допомога</string>
+    <string name="instep">Як користуватися додатком?</string>
+    <string name="save_file_success">Файл збереженний</string>
+    <string name="save_file_fail">Зберігання не вдалося виконати</string>
+    <string name="delete_file_success">Файл видаленний</string>
+    <string name="confirm">Так</string>
+    <string name="confirm_delete">Ви точно хочете видалити файл</string>
+    <string name="confirm_delete_title">Підтвердіть видалення</string>
+    <string name="cancel">Відміна</string>
+    <string name="chose_action_what_do_you_want">"Що ви хочете зробити з цим файлом "</string>
+    <string name="if_you_suddenly">"Якщо нічого - натисніть на область навколо діалогового вікна "</string>
+    <string name="chose_action_send">Надіслати</string>
+    <string name="chose_action_delete">Видалити</string>
+    <string name="chose_action_play">Відтворити</string>
+    <string name="save_file_title">Попередження</string>
+    <string name="save_file">Зберегти файл?</string>
+    <string name="begin_record">На початку запису попередня буде видалена, почати?</string>
+    <string name="begin_record_title">Повідомлення</string>
+    <string name="developers">З повагою, команда Samsung IT-School RL 21-22</string>
+    <string name="out_step">Ось і все, насолоджуйтесь нашим додатком!</string>
+    <string name="chose_action_title">Оберіть дію</string>
+    <string name="path1">1. Якщо ви вперше запустили додаток – дозвольте запис з мікрофона та читання файлів – це необхідно для нормального функціоналу. Якщо ж ви заборонили з вибором більше не питати - зайдіть в налаштування і зробіть це вручну.</string>
+    <string name="path2">2. Верхні 2 кнопки відповідають за керування записом, нижні 2 - за керування відтворенням щойно записаного файлу. У самому верху, у верхньому правому кутку синього блоку є значок Зберегти- клацніть на нього, коли захочете зберегти ваш запис і підтвердіть свою дію в діалозі.</string>
+    <string name="path3">3. Внизу є список файлів, які ви зберегли, він почне заповнюватися, коли ви зберігатимете ваші записи. Якщо ви натиснете на один з елементів списку - з\'явиться діалог з вибором дій. Також під час відтворення записів зі списку внизу під списком з\'явиться панель з кнопкою та повзунком, за допомогою яких можна керувати відтворенням.</string>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="audio_record">Ваша запись</string>
+    <string name="mod_false">Запись не началась</string>
+    <string name="mod_true">Запись началась</string>
+    <string name="help">Помощь</string>
+    <string name="instep">Как пользоваться приложением?</string>
+    <string name="save_file_success">Файл сохранён</string>
+    <string name="save_file_fail">Сохранение не удалось выполнить</string>
+    <string name="delete_file_success">Файл удалён</string>
+    <string name="confirm_delete">Вы точно хотите удалить файл</string>
+    <string name="confirm_delete_title">Подтвердите удаление</string>
+    <string name="chose_action_play">Воспроизвести</string>
+    <string name="chose_action_delete">Удалить</string>
+    <string name="chose_action_send">Отправить</string>
+    <string name="if_you_suddenly">Если ничего - нажмите на область вокруг диаолгового окна</string>
+    <string name="chose_action_what_do_you_want">Что вы хотите сделать с файлом</string>
+    <string name="begin_record">При начале записи предыдущая будет удалена, начать?</string>
+    <string name="begin_record_title">Сообщение</string>
+    <string name="developers">С уважением, команда Samsung IT-School RL 21-22</string>
+    <string name="out_step">Вот и всё, наслаждайтесь нашим приложением!</string>
+    <string name="path3">3. Внизу есть список файлов, которые вы сохранили, он начнёт заполняться, когда вы станете сохранять ваши записи. Если вы кликните на 1 из елементов списка - появиться диалог с выбором действий. Также при воспроизведении записей из списка, внизу под списком появится панел с кнопкой и ползунком, с помощью которых можно управлять воспроизведением.</string>
+    <string name="path2">2. Ввехние 2 кнопки отвечают за управление записью, нижние 2 - за управление воспроизведения только что записанного файла. В самом вверху, в вверхнем правом углу синего блока есть значок Сохранить- кликните на него, когда захотите сохранить вашу запись и подтвердите своё действие в диаолге.</string>
+    <string name="path1">1. Если вы впервые запустили приложение - разрешите запись с микрофона и чтение файлов - это необходимо для нормального функционала. Если же вы запретили с выбором больше не спрашивать- зайдите в настройки и зделайте это вручную.</string>
+    <string name="confirm">Да</string>
+    <string name="cancel">Отмена</string>
+    <string name="save_file_title">Предупреждение</string>
+    <string name="save_file">Сохранить файл?</string>
+    <string name="chose_action_title">Выберите действие</string>
+</resources>

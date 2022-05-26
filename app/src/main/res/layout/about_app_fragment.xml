@@ -52,7 +52,7 @@
                 android:id="@+id/about_app_path2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="360dp"
+                android:layout_marginTop="380dp"
                 android:layout_marginStart="20dp"
                 android:textColor="@color/black"
                 android:text='@string/path2'
@@ -62,7 +62,7 @@
                 android:id="@+id/about_app_path3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="620dp"
+                android:layout_marginTop="660dp"
                 android:layout_marginStart="20dp"
                 android:textColor="@color/black"
                 android:text='@string/path3'
@@ -72,7 +72,7 @@
                 android:id="@+id/about_app_out_step"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="980dp"
+                android:layout_marginTop="1000dp"
                 android:layout_marginStart="20dp"
                 android:textColor="@color/black"
                 android:text='@string/out_step'
@@ -83,7 +83,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="1070dp"
-                android:layout_marginBottom="40dp"
+                android:layout_marginBottom="70dp"
                 android:layout_marginStart="20dp"
                 android:textColor="@color/black"
                 android:text='@string/developers'

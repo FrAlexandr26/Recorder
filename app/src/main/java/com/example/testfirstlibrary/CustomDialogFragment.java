@@ -17,10 +17,10 @@ public class CustomDialogFragment extends DialogFragment {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        return builder.setTitle("Сообщение")
-                .setMessage("При начале записи предыдущая будет удалена, начать?")
-                .setNeutralButton("Отмена",null)
-                .setPositiveButton("Да", (dialog, which) ->
+        return builder.setTitle(R.string.begin_record_title)
+                .setMessage(R.string.begin_record)
+                .setNeutralButton(R.string.cancel,null)
+                .setPositiveButton(R.string.confirm, (dialog, which) ->
                         ((MainActivity)requireActivity()).recordStart())
                 .create();
     }

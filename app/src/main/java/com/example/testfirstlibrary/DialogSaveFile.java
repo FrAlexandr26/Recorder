@@ -13,10 +13,10 @@ public class DialogSaveFile extends DialogFragment {
 
 
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        return builder.setTitle("Caution")
-                .setMessage("Save file?")
-                .setNeutralButton("Cancel", null)
-                .setPositiveButton("Yes", (dialog, which) ->
+        return builder.setTitle(R.string.save_file_title)
+                .setMessage(R.string.save_file)
+                .setNeutralButton(R.string.cancel, null)
+                .setPositiveButton(R.string.confirm, (dialog, which) ->
                         ((MainActivity)requireActivity()).saveToTheFiles())
                 .create();
     }

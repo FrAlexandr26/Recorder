@@ -203,37 +203,37 @@ public class MainActivity extends AppCompatActivity {
         try {
             mediaRecorder = new MediaRecorder();
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "ERROR object", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Error create recorder", Toast.LENGTH_SHORT).show();
         }
         try {
             mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "ERROR set audio source", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Error set audio source", Toast.LENGTH_SHORT).show();
         }
         try {
             mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "ERROR set output format", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Error set output format", Toast.LENGTH_SHORT).show();
         }
         try {
             mediaRecorder.setOutputFile(fileName);
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "ERROR set output file", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Error set output file", Toast.LENGTH_SHORT).show();
         }
         try {
             mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "ERROR set encoder", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Error set encoder", Toast.LENGTH_SHORT).show();
         }
         try {
             mediaRecorder.prepare();
         }  catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "ERROR prepare", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Error prepare", Toast.LENGTH_SHORT).show();
         }
         try {
             mediaRecorder.start();
         } catch (Exception e) {
-            Toast.makeText(getApplicationContext(), "ERROR start", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Error start", Toast.LENGTH_SHORT).show();
         }
         if (mediaRecorder != null) {
            record_mode.setText(R.string.mod_true);
@@ -275,12 +275,12 @@ public class MainActivity extends AppCompatActivity {
             try {
                 mediaPlayer.setDataSource(fileName);
             } catch (IOException e) {
-                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Can't find this file", Toast.LENGTH_SHORT).show();
             }
             try {
                 mediaPlayer.prepare();
             } catch (IOException e) {
-                e.printStackTrace();
+                Toast.makeText(getApplicationContext(), "Error prepare", Toast.LENGTH_SHORT).show();
             }
             progressBar.setMax(mediaPlayer.getDuration());
             duration = Integer.toString(mediaPlayer.getDuration());
@@ -293,7 +293,7 @@ public class MainActivity extends AppCompatActivity {
                     current_position = Integer.toString(mediaPlayer.getCurrentPosition());
                     try {
                         timer_play.setText(current_position.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getCurrentPosition()), TimeUnit.MILLISECONDS.toSeconds(mediaPlayer.getCurrentPosition()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getCurrentPosition()))));
-                    }catch (Exception e){
+                    } catch (Exception e){
                         timer_play.setText("");
                     }
                     if (mediaPlayer.getDuration() == mediaPlayer.getCurrentPosition()){
@@ -364,11 +364,11 @@ public class MainActivity extends AppCompatActivity {
         try {
             Files.copy(cache_file, per_file, REPLACE_EXISTING);
         } catch (IOException e) {
-            Toast.makeText(getApplicationContext(), "copying is failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.save_file_fail, Toast.LENGTH_SHORT).show();
         }
         File newPerFile = new File(per_fileName);
         if (newPerFile.exists()) {
-            Toast.makeText(getApplicationContext(), "File is saved", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), R.string.save_file_success, Toast.LENGTH_SHORT).show();
             SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd.hh.mm.ss", Locale.getDefault());
             Date currentDate = new Date();
             File recordName = new File(getExternalFilesDir("/").getAbsolutePath(),   format.format(currentDate) + ".mp3");
@@ -390,7 +390,7 @@ public class MainActivity extends AppCompatActivity {
        File deleteRecord = new File(files_dir + "/" + get_file_to_delete);
        deleteRecord.delete();
        if (!deleteRecord.exists()){
-           Toast.makeText(getApplicationContext(), "File deleted", Toast.LENGTH_SHORT).show();
+           Toast.makeText(getApplicationContext(), R.string.delete_file_success, Toast.LENGTH_SHORT).show();
            file_list_adapter.remove(get_file_to_delete);
            file_list_adapter.notifyDataSetChanged();
        }
@@ -414,12 +414,12 @@ public class MainActivity extends AppCompatActivity {
         try {
             recordsPlayer.setDataSource(files_dir + "/" + get_file_to_play);
         } catch (IOException e) {
-            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Can't find this file", Toast.LENGTH_SHORT).show();
         }
         try {
             recordsPlayer.prepare();
         } catch (IOException e) {
-            e.printStackTrace();
+            Toast.makeText(getApplicationContext(), "Error prepare", Toast.LENGTH_SHORT).show();
         }
         recordsPlayer.start();
         record_control.setMax(recordsPlayer.getDuration());

@@ -13,10 +13,10 @@ public class ConfirmActionDialog extends DialogFragment {
 
         String get_object = getArguments().getString("object");
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-        return builder.setTitle("Подтвердите удаление")
-                .setMessage("Вы точно хотите удалить файл?" + " " + get_object)
-                .setNegativeButton("Отмена",null)
-                .setPositiveButton("Да", (dialog, which) ->
+        return builder.setTitle(R.string.confirm_delete_title)
+                .setMessage(R.string.confirm_delete + " " + get_object + "?")
+                .setNegativeButton(R.string.cancel,null)
+                .setPositiveButton(R.string.confirm, (dialog, which) ->
                         ((MainActivity)requireActivity()).deleteFileFromDir(get_object))
                 .create();
     }
