@@ -163,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
             selected_item = array_for_adapter.get(position);
             argument = new Bundle();
             argument.putString("object", selected_item);
-            ChoseActionDialog choseDialog = new ChoseActionDialog();
+            ChoseActionDialog choseDialog = new ChoseActionDialog(this);
             choseDialog.setArguments(argument);
             choseDialog.show(getSupportFragmentManager(), "chose!");
         });
@@ -381,7 +381,7 @@ public class MainActivity extends AppCompatActivity {
     public void confirmDelete(String get_file_to_confirm){
         Bundle confirm_argument = new Bundle();
         confirm_argument.putString("object", get_file_to_confirm);
-        ConfirmActionDialog confirmActionDialog = new ConfirmActionDialog();
+        ConfirmActionDialog confirmActionDialog = new ConfirmActionDialog(this);
         confirmActionDialog.setArguments(confirm_argument);
         confirmActionDialog.show(getSupportFragmentManager(), "confirm!");
     }
