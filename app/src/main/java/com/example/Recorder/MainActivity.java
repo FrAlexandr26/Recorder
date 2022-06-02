@@ -419,7 +419,7 @@ public class MainActivity extends AppCompatActivity {
     //Надсилання запису з списка записів у інші додатки
     public void sendFileFromDir(String get_file_to_send){
         File recordToSend = new File(files_dir + "/" + get_file_to_send);
-        Uri resUri = FileProvider.getUriForFile(this, "com.example.testfirstlibrary", recordToSend);
+        Uri resUri = FileProvider.getUriForFile(this, "com.example.Recorder", recordToSend);
         Intent share = new Intent(Intent.ACTION_SEND).setType("audio/*");
         share.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         share.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
