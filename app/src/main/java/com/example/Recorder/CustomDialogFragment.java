@@ -1,4 +1,4 @@
-package com.example.testfirstlibrary;
+package com.example.Recorder;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -15,7 +15,7 @@ public class CustomDialogFragment extends DialogFragment {
     @NonNull
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-
+        //Діалог старту запису
         AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
         return builder.setTitle(R.string.begin_record_title)
                 .setMessage(R.string.begin_record)

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.testfirstlibrary">
+    package="com.example.Recorder">
 
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/microphone_vector_icon"
+        android:icon="@mipmap/ic_launcher_foreground"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/microphone_vector_icon"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.TestFirstLibrary">
+        android:theme="@style/Theme.Recorder">
         <activity
-            android:name=".SplashActivity"
+            android:name="com.example.Recorder.SplashActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
@@ -24,14 +24,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.Recorder.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
         </activity>
 
         <provider
             android:name="androidx.core.content.FileProvider"
-            android:authorities="com.example.testfirstlibrary"
+            android:authorities="com.example.Recorder"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

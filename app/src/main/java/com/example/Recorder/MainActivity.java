@@ -1,4 +1,4 @@
-package com.example.testfirstlibrary;
+package com.example.Recorder;
 
 
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
@@ -14,9 +14,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.SystemClock;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -48,7 +47,6 @@ import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -100,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Перевіряємо та запитуємо дозвіл на роботу мікрофона
         permission = ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.RECORD_AUDIO);
 
         if (permission == PackageManager.PERMISSION_DENIED) {
@@ -107,10 +106,13 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-
-        getWindow().setStatusBarColor(getColor(R.color.teal_700));
+        //Працюємо із System UI
+        Window window = getWindow();
+        window.setStatusBarColor(getColor(R.color.teal_700));
+        window.setNavigationBarColor(getColor(R.color.nav_color));
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(Color.rgb(35, 174, 163)));
 
+        //Видаляємо кеш, та готуємо усе необхідне для роботи з файлами
         fileName = getExternalCacheDir().getAbsolutePath() + "/record.mp3";
         File cacheDelete = new File(fileName);
         if (cacheDelete.exists()) {
@@ -121,15 +123,15 @@ public class MainActivity extends AppCompatActivity {
         record_control = findViewById(R.id.record_control);
         cache_file = Paths.get(fileName);
         per_file = Paths.get(per_fileName);
-
         files_dir = getExternalFilesDir("/").getAbsolutePath();
+        //Створюємо, отримуємо та переписуемо список файлів у адаптер
         File dir_list = new File(files_dir);
         files_array = dir_list.list();
         for (int i = 0; i < files_array.length; i++){
             array_for_adapter.add(files_array[i]);
         }
 
-
+        //Створюємо хендлер та об'єкти інтерфейсу
         handler = new Handler();
         records_handler = new Handler();
         record_mode =findViewById(R.id.record_mode);
@@ -157,10 +159,13 @@ public class MainActivity extends AppCompatActivity {
 
         records_list_show = findViewById(R.id.records_list_show);
 
+        //Створення адаптеру та закріплення його до списку у інтерфейсі
         file_list_adapter = new ArrayAdapter(this, R.layout.list_item, R.id.arr_item, array_for_adapter);
         records_list_show.setAdapter(file_list_adapter);
+        //Обробка вибору записа зі списку
         records_list_show.setOnItemClickListener((parent, view, position, id) -> {
             selected_item = array_for_adapter.get(position);
+            //Передача обранного запису зі списка записів
             argument = new Bundle();
             argument.putString("object", selected_item);
             ChoseActionDialog choseDialog = new ChoseActionDialog(this);
@@ -168,6 +173,7 @@ public class MainActivity extends AppCompatActivity {
             choseDialog.show(getSupportFragmentManager(), "chose!");
         });
 
+        //Стабілізація роботи єкрану
         scroll_screen = findViewById(R.id.scroll_screen);
 
             records_list_show.setOnTouchListener((v, event) -> {
@@ -175,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             });
 
+        //Відображення інструкції по користуванням додатком
         about_app_button = findViewById(R.id.about_app_button);
         show_fragment = false;
         aboutAppFragment = new AboutAppFragment();
@@ -190,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //Запис голосу
     public void recordStart() {
         button1.setEnabled(false);
         button2.setEnabled(true);
@@ -241,6 +249,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    //Очищення мікрофону
     private void releaseRecorder() {
         if (mediaRecorder != null) {
             mediaRecorder.release();
@@ -248,12 +257,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Очищення 1 програвача
     private void releasePlayer(){
         if (mediaPlayer != null) {
             mediaPlayer.release();
             mediaPlayer = null;
         }
     }
+    //Очищення 2 програвача
     private void releaseDirPlayer(){
         if (recordsPlayer != null) {
             recordsPlayer.release();
@@ -261,6 +272,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Зупинка запису голоса
     public void recordStop(View view) {
         releasePlayer();
         mediaRecorder.stop();
@@ -282,6 +294,7 @@ public class MainActivity extends AppCompatActivity {
             } catch (IOException e) {
                 Toast.makeText(getApplicationContext(), "Error prepare", Toast.LENGTH_SHORT).show();
             }
+        //Підготовка відображення стану програвання 1 плеера
             progressBar.setMax(mediaPlayer.getDuration());
             duration = Integer.toString(mediaPlayer.getDuration());
             play_duration.setText(duration.format("%02d:%02d", TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getDuration()), TimeUnit.MILLISECONDS.toSeconds(mediaPlayer.getDuration()) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mediaPlayer.getDuration()))));
@@ -307,6 +320,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //Запуск програвання 1 плееру
     public void playStart(View view) {
         button5.setEnabled(false);
         button4.setEnabled(true);
@@ -319,7 +333,6 @@ public class MainActivity extends AppCompatActivity {
         releasePlayer();
         releaseDirPlayer();
         releaseRecorder();
-        Toast.makeText(getApplicationContext(), "App finished", Toast.LENGTH_SHORT).show();
         super.onDestroy();
     }
     @Override
@@ -334,6 +347,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //Блокування кнопки старту запису у випадку відмови у дозволі до мікрофону
     @Override
     public void onRequestPermissionsResult(int requestCode,  @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -346,13 +360,14 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
+    //Діалог пітвердження запуску програвача
     public void Show_start(View view) {
         CustomDialogFragment dialog = new CustomDialogFragment();
         dialog.show(getSupportFragmentManager(),"example");
 
     }
 
+    //Пауза 1 плеера
     public void pause(View view) {
         if (mediaPlayer != null) {
             mediaPlayer.pause();
@@ -360,6 +375,7 @@ public class MainActivity extends AppCompatActivity {
             button5.setEnabled(true);
         }
     }
+    //Зберігання запису
     public void saveToTheFiles(){
         try {
             Files.copy(cache_file, per_file, REPLACE_EXISTING);
@@ -369,7 +385,7 @@ public class MainActivity extends AppCompatActivity {
         File newPerFile = new File(per_fileName);
         if (newPerFile.exists()) {
             Toast.makeText(getApplicationContext(), R.string.save_file_success, Toast.LENGTH_SHORT).show();
-            SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd.hh.mm.ss", Locale.getDefault());
+            SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd.HH:mm:ss", Locale.getDefault());
             Date currentDate = new Date();
             File recordName = new File(getExternalFilesDir("/").getAbsolutePath(),   format.format(currentDate) + ".mp3");
             newPerFile.renameTo(recordName);
@@ -378,14 +394,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //Підтвердження видалення запису з списка записів
     public void confirmDelete(String get_file_to_confirm){
+        //Передача назви обранного файлу у діалогове вікно
         Bundle confirm_argument = new Bundle();
         confirm_argument.putString("object", get_file_to_confirm);
+
         ConfirmActionDialog confirmActionDialog = new ConfirmActionDialog(this);
         confirmActionDialog.setArguments(confirm_argument);
         confirmActionDialog.show(getSupportFragmentManager(), "confirm!");
     }
 
+    //Видалення запису з списка записів
     public void deleteFileFromDir(String get_file_to_delete){
        File deleteRecord = new File(files_dir + "/" + get_file_to_delete);
        deleteRecord.delete();
@@ -396,6 +416,7 @@ public class MainActivity extends AppCompatActivity {
        }
     }
 
+    //Надсилання запису з списка записів у інші додатки
     public void sendFileFromDir(String get_file_to_send){
         File recordToSend = new File(files_dir + "/" + get_file_to_send);
         Uri resUri = FileProvider.getUriForFile(this, "com.example.testfirstlibrary", recordToSend);
@@ -406,6 +427,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(Intent.createChooser(share, "Send to:"));
     }
 
+    //Програвання запису з списка записів
     public void playFileFromDir(String get_file_to_play){
         releaseDirPlayer();
         play_state = true;
@@ -421,6 +443,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (IOException e) {
             Toast.makeText(getApplicationContext(), "Error prepare", Toast.LENGTH_SHORT).show();
         }
+        //Готуємо панель 2 плееру до відображення стану програвання запису зі списку
         recordsPlayer.start();
         record_control.setMax(recordsPlayer.getDuration());
         record_control.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {

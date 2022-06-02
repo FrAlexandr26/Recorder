@@ -1,10 +1,9 @@
-package com.example.testfirstlibrary;
+package com.example.Recorder;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Toast;
 
 public class SplashActivity extends AppCompatActivity {
 

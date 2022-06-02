@@ -1,4 +1,4 @@
-package com.example.testfirstlibrary;
+package com.example.Recorder;
 
 import org.junit.Test;
 
