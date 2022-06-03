@@ -432,9 +432,10 @@ public class MainActivity extends AppCompatActivity {
         releaseDirPlayer();
         play_state = true;
         play_bar.setVisibility(View.VISIBLE);
+        File play_file = new File(files_dir + "/" + get_file_to_play);
         recordsPlayer = new MediaPlayer();
         try {
-            recordsPlayer.setDataSource(files_dir + "/" + get_file_to_play);
+            recordsPlayer.setDataSource(this, FileProvider.getUriForFile(this, "com.example.Recorder", play_file));
         } catch (IOException e) {
             Toast.makeText(getApplicationContext(), "Can't find this file", Toast.LENGTH_SHORT).show();
         }
@@ -446,6 +447,8 @@ public class MainActivity extends AppCompatActivity {
         //Готуємо панель 2 плееру до відображення стану програвання запису зі списку
         recordsPlayer.start();
         record_control.setMax(recordsPlayer.getDuration());
+        start_stop.setText(R.string.pause);
+        start_stop.setTextSize(15);
         record_control.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
